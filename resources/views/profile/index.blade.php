@@ -9,7 +9,14 @@
 
         </div>
         <div class="col-lg-4 col-lg-offset-3">
-            friends
+            <h4>{{ $user->getNameOrUsername() }}'s friends</h4>
+            @if(!$user->friends()->count())
+                <p>{{ $user->getNameOrUsername() }} has no friends :)</p>
+            @else
+                @foreach($user->friends() as $user)
+                    @include('user.partials.userblock')
+                @endforeach
+            @endif
         </div>
     </div>
 @stop

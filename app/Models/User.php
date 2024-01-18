@@ -75,12 +75,12 @@ class User extends Authenticatable
 
     public function friendsOfMine()
     {
-        return $this->belongsToMany('App\Models\User' , 'friends' , 'user_id' , 'friend_id');
+        return $this->belongsToMany('App\Models\User' , 'friends' , 'friend_id' , 'user_id');
     }
 
     public function friendOf()
     {
-        return $this->belongsToMany('App\Models\User' , 'friends' , 'friend_id' , 'user_id');
+        return $this->belongsToMany('App\Models\User' , 'friends' , 'user_id' , 'friend_id');
     }
 
     public function friends()
@@ -91,5 +91,37 @@ class User extends Authenticatable
     public function friendRequests()
     {
         return $this->friendsOfMine()->wherePivot('accepted', false)->get();
+    }
+
+    public function friendRequestsPending()
+    {
+        return $this->friendOf()->wherePivot('accepted', false)->get();
+    }
+
+    public function hasFriendRequestPending(User $user)
+    {
+        return $this->friendRequestsPending()->where('id' , $user->id)->count();
+    }
+
+    public function hasFriendRequestReceived(User $user)
+    {
+        return $this->friendRequests()->where('id',$user->id)->count();
+    }
+
+    public function addFriend(User $user)
+    {
+        $this->friendOf()->attach($user->id);
+    }
+
+    public function acceptFriendRequest(User $user)
+    {
+        $this->friendRequests()->where('id' , $user->id)->first()->pivot->update([
+            'accepted' => true
+        ]);
+    }
+
+    public function isFriendWith(User $user)
+    {
+        return (bool) $this->friends()->where('id',$user->id)->count();
     }
 }

@@ -71,3 +71,9 @@ Route::post('/profile/edit',[
     'middleware' => ['auth']
 ]);
 
+//Friends
+Route::get('/friends',[
+    'uses' => '\App\Http\Controllers\FriendController@getIndex',
+    'as' => 'friends.index',
+    'middleware' => ['auth']
+]);

@@ -8,8 +8,8 @@
         <div class="collapse navbar-collapse justify-content-between">
             @if (Auth::check())
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#">TimeLine</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Friends</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">TimeLine</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('friends.index') }}">Friends</a></li>
                     <li>
                         <form class="form-inline my-2 my-lg-0" action="{{ route('search.results') }}">
                             <div class="input-group" style="gap: 10px">

@@ -48,11 +48,13 @@
                                     <span class="ml-2">10 Likes</span>
 
                                     <!-- Reply Form -->
-                                    <form role="form" action="#" method="post" class="mt-3">
+                                    <form role="form" action="{{ route('status.reply' , ['statusId' =>$status->id ]) }}" method="post" class="mt-3">
                                         <div class="form-group">
-                                            <textarea class="form-control" placeholder="Reply to this status"></textarea>
+                                            <textarea class="form-control{{ $errors->has("reply-". $status->id) ? ' is-invalid' : '' }}" name="reply-{{ $status->id }}" placeholder="Reply to this status"></textarea>
+                                            <span class="help-block invalid-feedback">{{ $errors->first("reply-". $status->id) }}</span>
                                         </div>
                                         <input type="submit" class="btn btn-success mt-2" value="Reply">
+                                        <input type="hidden" name="_token" value="{{ Session::token() }}">
                                     </form>
                                 </div>
                             </div>

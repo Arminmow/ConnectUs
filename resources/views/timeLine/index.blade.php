@@ -24,39 +24,51 @@
                 <p>There is nothing in your timeline. :(</p>
             @else
                 @foreach($statuses as $status)
-                    <div class="media">
-                        <a class="pull-left" href="{{ route('profile.index', ['username' => $status->user->username]) }}">
-                            <img class="media-object img-circle" alt="{{ $status->user->getNameOrUsername() }}"
-                                 src="{{ $status->user->getAvatarUrl() }}">
-                        </a>
-                        <div class="media-body">
-                            <h4 class="media-heading">
-                                <a href="{{ route('profile.index', ['username' => $status->user->username]) }}">
-                                    {{ $status->user->getNameOrUsername() }}
-                                </a>
-                            </h4>
-                            <p>{{ $status->body }}</p>
-                            <ul class="list-inline">
-                                <li>{{ $status->created_at->diffForHumans() }}</li>
-                                <li><a href="#">Like</a></li>
-                                <li>10 Likes</li>
-                            </ul>
 
-                            <form role="form" action="#" method="post">
-                                <div class="form-group">
-                                    <textarea name="reply-1" class="form-control" rows="2" placeholder="Reply to this status"></textarea>
+                    <div class="container mt-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- User Profile Image -->
+                                <a href="{{ route('profile.index', ['username' => $status->user->username]) }}">
+                                    <img src="{{ $status->user->getAvatarUrl() }}" alt="{{ $status->user->getNameOrUsername() }}" class="img-fluid rounded-circle" style="width: 50px; height: 50px;">
+                                </a>
+                                <!-- User Name -->
+                                <a href="{{ route('profile.index', ['username' => $status->user->username]) }}">
+                                    <h5 class="card-title ml-2">{{ $status->user->getNameOrUsername() }}</h5>
+                                </a>
+                                <!-- User Comment -->
+                                <p class="card-text mt-2">{{ $status->body }}</p>
+
+                                <!-- Time Posted -->
+                                <small class="text-muted">{{ $status->created_at->diffForHumans() }}</small>
+
+                                <!-- Like Button and Number of Likes -->
+                                <div class="mt-3">
+                                    <button type="button" class="btn btn-primary btn-sm">Like</button>
+                                    <span class="ml-2">10 Likes</span>
+
+                                    <!-- Reply Form -->
+                                    <form role="form" action="#" method="post" class="mt-3">
+                                        <div class="form-group">
+                                            <textarea class="form-control" placeholder="Reply to this status"></textarea>
+                                        </div>
+                                        <input type="submit" class="btn btn-success mt-2" value="Reply">
+                                    </form>
                                 </div>
-                                <input type="submit" value="Reply" class="btn btn-primary btn-sm">
-                            </form>
+                            </div>
                         </div>
                     </div>
 
-                @endforeach
-
-                {{ $statuses->links() }}
-
-            @endif
 
         </div>
+
+
+        @endforeach
+
+        {{ $statuses->links() }}
+
+        @endif
+
+    </div>
 
 @stop

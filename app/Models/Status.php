@@ -12,7 +12,7 @@ class Status extends Model
         'body'
     ];
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('\App\Models\User', 'user_id');
     }
@@ -22,9 +22,14 @@ class Status extends Model
         return $query->whereNull('parent_id');
     }
 
-    public function replies()
+    public function replies(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany('\App\Models\Status', 'parent_id');
+    }
+
+    public function likes(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany('\App\Models\Like', 'likeable');
     }
 
 }

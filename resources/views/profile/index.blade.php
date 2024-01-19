@@ -29,10 +29,9 @@
                                 <small class="text-muted">{{ $status->created_at->diffForHumans() }}</small>
 
                                 <!-- Like Button and Number of Likes -->
-                                <div class="mt-3" >
-                                    <button type="button" class="btn btn-primary btn-sm">Like</button>
-                                    <span class="ml-2">10 Likes</span>
-                                    <!-- Replies -->
+
+
+                                    <!------------------------------------------ Replies ------------------------------>
                                     @foreach($status->replies as $reply)
 
                                         <div class="card-body">
@@ -51,11 +50,12 @@
                                             <small class="text-muted">{{ $reply->created_at->diffForHumans() }}</small>
 
                                             <!-- Like Button and Number of Likes -->
-                                            <div class="mt-3" style="display: inline-block">
-                                                <button type="button" class="btn btn-primary btn-sm">Like</button>
-                                                <span class="ml-2">10 Likes</span>
-
-                                            </div>
+                                            @if($reply->user_id !== Auth::user()->id)
+                                                <div class="mt-3" style="display: inline-block">
+                                                    <a class="btn btn-primary btn-sm" href="{{ route('status.like', ['statusId' => $reply->id]) }}">Like</a>
+                                                    <span class="ml-2">10 Likes</span>
+                                                </div>
+                                            @endif
                                         </div>
 
                                     @endforeach

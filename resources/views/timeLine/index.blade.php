@@ -47,9 +47,11 @@
                                 <!-- Like Button and Number of Likes -->
                                 @if($status->user_id !== Auth::user()->id)
                                     <div class="mt-3">
-                                        <a class="btn btn-primary btn-sm" href="{{ route('status.like', ['statusId' => $status->id]) }}">Like</a>
-                                        <span class="ml-2">10 Likes</span>
+                                        <a class="btn btn-primary btn-sm"
+                                           href="{{ route('status.like', ['statusId' => $status->id]) }}">Like</a>
+
                                         @endif
+                                        <span class="ml-2">{{ $status->likes->count() }} Likes</span>
                                         <!--------------------------------- Replies -------------------------------------->
                                         @foreach($status->replies as $reply)
 
@@ -75,10 +77,11 @@
                                                 <!-- Like Button and Number of Likes -->
                                                 @if($reply->user_id !== Auth::user()->id)
                                                     <div class="mt-3" style="display: inline-block">
-                                                        <a class="btn btn-primary btn-sm" href="{{ route('status.like', ['statusId' => $reply->id]) }}">Like</a>
-                                                        <span class="ml-2">10 Likes</span>
+                                                        <a class="btn btn-primary btn-sm"
+                                                           href="{{ route('status.like', ['statusId' => $reply->id]) }}">Like</a>
                                                     </div>
                                                 @endif
+                                                <span class="ml-2">{{ $status->likes->count() }} Likes</span>
                                             </div>
 
                                         @endforeach

@@ -32,7 +32,7 @@
                     <span class="help-block invalid-feedback">{{ $errors->first('location') }}</span>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-default">Update</button>
+                    <button type="submit" class="btn btn-primary mt-2">Update</button>
                 </div>
                 <input type="hidden" name="_token" value="{{ Session::token() }}">
             </form>
